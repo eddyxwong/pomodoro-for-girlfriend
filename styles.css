@@ -104,6 +104,11 @@
 }
 
 body {
+    background-image: url('file:///Users/eddywong/.gemini/antigravity/brain/789a437e-dac8-4133-999e-f9d07d2a6ed6/cute_animal_border_1774765191962.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
     background-color: var(--bg-color);
     color: var(--text-main);
     display: flex;
@@ -577,6 +582,7 @@ input:checked + .toggle-slider:before {
 
 /* Picture in Picture Mode Overrides */
 body.is-pip-mode {
+    background-image: none !important;
     padding: 0 !important;
     margin: 0 !important;
     height: 100vh !important;
