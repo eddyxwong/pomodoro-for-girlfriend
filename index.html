@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="matcha-green">
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header>
+            <h1>Pomodoro</h1>
+            <div class="header-actions">
+                <button id="pipBtn" class="icon-btn" title="Picture in Picture" style="display: none;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                </button>
+                <button id="metricsBtn" class="icon-btn" title="Metrics">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="3" width="4" height="18"></rect><rect x="10" y="8" width="4" height="13"></rect><rect x="2" y="13" width="4" height="8"></rect></svg>
+                </button>
+                <button id="settingsBtn" class="icon-btn" title="Settings">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <div id="pipContent" class="pip-wrapper">
+            <!-- Mode Selector -->
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="focus">Focus</button>
+                <button class="mode-btn" data-mode="shortBreak">Short Break</button>
+                <button class="mode-btn" data-mode="longBreak">Long Break</button>
+            </div>
+
+            <!-- Timer Display -->
+            <div class="timer-container">
+                <svg class="progress-ring" width="280" height="280">
+                    <circle class="progress-ring__circle" stroke="white" stroke-width="12" fill="transparent" r="120" cx="140" cy="140"/>
+                </svg>
+                <div class="time-display" id="timeDisplay">25:00</div>
+                <div class="pip-progress-bar">
+                    <div class="pip-progress-fill" id="pipProgressFill"></div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button id="startPauseBtn" class="control-btn main-btn">Start</button>
+                <button id="skipBtn" class="icon-btn" title="Skip Session">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <div class="setting-group">
+                <h3>Durations (minutes)</h3>
+                <div class="duration-inputs">
+                    <label>Focus <input type="number" id="focusInput" value="25" min="1"></label>
+                    <label>Short Break <input type="number" id="shortInput" value="5" min="1"></label>
+                    <label>Long Break <input type="number" id="longInput" value="15" min="1"></label>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <h3>Themes</h3>
+                <div class="theme-picker" id="themePicker">
+                    <div class="theme-option" data-theme="matcha-green" style="--tColor: #c5e1a5;" title="Matcha Green"></div>
+                    <div class="theme-option" data-theme="strawberry-pink" style="--tColor: #ffcdd2;" title="Strawberry Pink"></div>
+                    <div class="theme-option" data-theme="lavender" style="--tColor: #d1c4e9;" title="Lavender"></div>
+                    <div class="theme-option" data-theme="ocean-blue" style="--tColor: #b3e5fc;" title="Ocean Blue"></div>
+                    <div class="theme-option" data-theme="morning-sunshine" style="--tColor: #fff59d;" title="Morning Sunshine"></div>
+                    <div class="theme-option" data-theme="golden-hour" style="--tColor: #ffcc80;" title="Golden Hour"></div>
+                    <div class="theme-option" data-theme="evening-moonlight" style="--tColor: #9fa8da;" title="Evening Moonlight"></div>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <h3>Notifications</h3>
+                <label class="toggle-label">
+                    <span>Sound</span>
+                    <input type="checkbox" id="soundToggle" checked>
+                    <div class="toggle-slider"></div>
+                </label>
+            </div>
+
+            <button id="saveSettingsBtn" class="save-btn">Save Changes</button>
+        </div>
+    </div>
+
+    <!-- Metrics Modal -->
+    <div id="metricsModal" class="modal">
+        <div class="modal-content metrics-content">
+            <div class="modal-header">
+                <h2>Your Metrics</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <div class="stats-summary">
+                <div class="stat-box">
+                    <div class="stat-value" id="statFocusTime">0</div>
+                    <div class="stat-label">Focus Mins Today</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="statSessions">0</div>
+                    <div class="stat-label">Pomodoros Today</div>
+                </div>
+            </div>
+
+            <div class="recent-sessions">
+                <h3>Recent Sessions</h3>
+                <div class="sessions-list" id="sessionsList">
+                    <!-- JavaScript will populate this -->
+                </div>
+            </div>
+
+            <div class="metrics-actions">
+                <button id="exportCsvBtn" class="control-btn outline-btn">Export to CSV</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
