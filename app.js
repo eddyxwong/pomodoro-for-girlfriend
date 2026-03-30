@@ -366,8 +366,8 @@ if ('documentPictureInPicture' in window) {
 
         try {
             pipWindow = await window.documentPictureInPicture.requestWindow({
-                width: 240,
-                height: 180
+                width: 250,
+                height: 300
             });
 
             // Copy all styles to the new window
@@ -390,7 +390,6 @@ if ('documentPictureInPicture' in window) {
             // Set up PiP window body
             pipWindow.document.body.classList.add('is-pip-mode');
             pipWindow.document.body.setAttribute('data-theme', document.body.getAttribute('data-theme'));
-            pipWindow.document.body.style.backgroundColor = getComputedStyle(document.body).getPropertyValue('--bg-color');
 
             // Move content to PiP window
             pipWindow.document.body.appendChild(pipContent);
@@ -420,7 +419,6 @@ if ('documentPictureInPicture' in window) {
         opt.addEventListener('click', (e) => {
             if (pipWindow) {
                 pipWindow.document.body.setAttribute('data-theme', opt.dataset.theme);
-                pipWindow.document.body.style.backgroundColor = getComputedStyle(document.body).getPropertyValue('--bg-color');
             }
         });
     });

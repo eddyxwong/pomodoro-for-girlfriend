@@ -104,7 +104,7 @@
 }
 
 body {
-    background-image: url('file:///Users/eddywong/.gemini/antigravity/brain/789a437e-dac8-4133-999e-f9d07d2a6ed6/cute_animal_border_1774765191962.png');
+    background-image: url('cute_animal_border_1774765191962.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -583,6 +583,8 @@ input:checked + .toggle-slider:before {
 /* Picture in Picture Mode Overrides */
 body.is-pip-mode {
     background-image: none !important;
+    background-color: var(--primary-dark) !important;
+    color: var(--bg-color) !important;
     padding: 0 !important;
     margin: 0 !important;
     height: 100vh !important;
@@ -625,18 +627,29 @@ body.is-pip-mode .progress-ring {
 
 body.is-pip-mode .time-display {
     position: static;
-    font-size: clamp(2.5rem, 25vw, 6rem);
+    font-size: clamp(3rem, 25vw, 6rem);
     line-height: 1;
     font-weight: 800;
+    color: white !important;
 }
 
 body.is-pip-mode .pip-progress-bar {
     display: block;
     margin: 0;
     height: 2vh;
-    min-height: 6px;
+    min-height: 8px;
     max-height: 12px;
-    width: 70%;
+    width: 80%;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px;
+}
+
+body.is-pip-mode .pip-progress-fill {
+    height: 100%;
+    background: white !important;
+    width: 100%;
+    transition: width 1s linear;
+    border-radius: 8px;
 }
 
 body.is-pip-mode .controls {
@@ -647,13 +660,27 @@ body.is-pip-mode .controls {
 body.is-pip-mode .control-btn.main-btn {
     padding: 2vh 6vw;
     font-size: clamp(0.9rem, 5vw, 1.2rem);
+    background: white !important;
+    color: var(--primary-dark) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.is-pip-mode .control-btn.main-btn:hover {
+    background: var(--bg-color) !important;
+    transform: translateY(-2px);
 }
 
 body.is-pip-mode #skipBtn {
     padding: 5px;
+    color: white !important;
+}
+
+body.is-pip-mode #skipBtn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
 }
 
 body.is-pip-mode #skipBtn svg {
     width: clamp(24px, 8vw, 32px);
     height: clamp(24px, 8vw, 32px);
 }
+
